@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="col-md-12">
+        <div class="row" style="margin-top: 4%">
+            <div class="col-md-8">
+                {% for r in result %}
+            <!-- Blog Entries Column -->
+                <div class="card mb-4">
+                    <img class="card-img-top" src="{{r.Image.url}}" alt="leaders news">
+                    <div class="card-body">
+                        <h2 class="card-title">{{r.Title}}</h2>
+                        <p><b>Category : </b> <a href="category.php?catid=6">{{r.category}}</a> </p>
+                        <p>{{r.Description}}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on {{r.Posting_date}}           
+                    </div>          
+                </div>
+            {% endfor %} 
+        </div> 
+    <div>
+    </div>
+{% endblock content %}

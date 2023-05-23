@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<div class="col-md-12">
+    <div class="row" style="margin-top: 4%">
+        <div class="col-md-8">
+            {% for c in category %}
+        <!-- Blog Entries Column -->
+            <div class="card mb-4">
+                <img class="card-img-top"  alt="">
+                <div class="card-body">
+                    <h2 class="card-title">{{c.Name}}</h2>
+                    <p><b>Category : </b>{{ c.Description}} </p>
+                   
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{c.Posting_date}}           
+                </div>          
+            </div>
+        {% endfor %} 
+    </div> 
+<div>
+</div>
+{% endblock content %}

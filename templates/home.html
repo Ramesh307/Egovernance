@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="col-md-12">
+        <div class="row" style="margin-top: 4%">
+            <div class="col-md-8">
+                {% for p in post %}
+            <!-- Blog Entries Column -->
+                <div class="card mb-4">
+                    <img class="card-img-top" src="{{p.Image.url}}" alt="leaders news">
+                    <div class="card-body">
+                        <h2 class="card-title">{{p.Title}}</h2>
+                        <p><b>Category : </b> <a href="category.php?catid=6">{{p.category}}</a> </p>
+                        <p>{{p.Description}}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on {{p.Posting_date}}           
+                    </div>          
+                </div>
+            {% endfor %} 
+        </div> 
+    <div>
+</div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card mb-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <form action="{% url 'search' %}">
+            <div class="input-group">
+            
+            <input name="q" type="text" name="searchtitle" class="form-control" placeholder="Search for..." required>
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="submit">Go!</button>
+              </span>
+            
+            </form>
+            </div>
+          </div>
+        </div>
+
+         <!-- Categories Widget -->
+         <div class="card my-4">
+            <h5 class="card-header">Categories</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    {% for c in category %}
+                        <li>
+                            <a href="{% url 'category_filter' c.id %}">{{c.Name}}</a>
+                        </li>                 
+                    {% endfor %} 
+                  </ul>
+                </div>
+       
+              </div>
+            </div>
+          </div>
+          <div class="card my-4">
+            <h5 class="card-header">Recent News</h5>
+            <div class="card-body">
+                <ul class="mb-0">
+                    {% for p in post %}
+                        <li>
+                        <a href="{% url 'post_filter' p.id %}">{{p.Title}}</a>
+                      </li>
+                    {% endfor %}         
+                </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!---Comment Section -->
+
+ <div class="row" style="margin-top: -8%">
+   <div class="col-md-8">
+<div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+              <form action="{% url 'save_comment' %}" method="post">
+                    {{commentForm.as_p}}
+                    {% csrf_token %}
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+          <!---Comment Display Section -->
+
+ <div class="media mb-4">
+        {% for c in comments %}
+        <img class="d-flex mr-3 rounded-circle" src="images/usericon.png" alt="">
+        <div class="media-body">
+          <h5 class="mt-0">{{c.Email}} <br />
+              <span style="font-size:11px;"><b>at</b></span>
+        </h5> 
+         {{c.details}}
+      </div>
+        {% endfor %}
+    </div>
+        </div>
+      </div>
+    </div>
+
+  
+          <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Ramace</p>
+      </div>
+
+{% endblock content %}
